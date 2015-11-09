@@ -62,13 +62,15 @@
                         <h1>Eat It</h1>
                         <h3>Your custom meal plan</h3>
                         <hr class="intro-divider">
-                        <form class="form-inline">
+                        <form id="login" class="form-inline">
                             <div class="form-group">
                                 <input name="email" class="form-control" type="text" placeholder="email">
                                 <input name="password" class="form-control" type="password" placeholder="password">
                                 <input name="login" class="form-control" type="submit" value="Login">
                             </form>
                         </div>
+                          <label for="result">Debugging Console</label>
+  <textarea class="form-control" id="result"></textarea>
                     </div>
                 </div>
             </div>
@@ -206,6 +208,7 @@
     </footer>
 
 <script src="assets/js/jquery-2.1.4.min.js"></script>
+<script src="assets/js/grocery_list_api.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 </body>
 </html>
