@@ -31,6 +31,30 @@ var glapi = {
       data: JSON.stringify(credentials),
       dataType: 'json'
     }, callback);
+  },
+    //Authenticated api actions
+  showWeeklyMenus: function (token, callback) {
+    this.ajax({
+      method: 'GET',
+      url: this.gl + '/weekly_menus',
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      dataType: 'json'
+
+    }, callback);
+  },
+    //Authenticated api actions
+  showGroceries: function (token, callback) {
+    this.ajax({
+      method: 'GET',
+      url: this.gl + '/groceries',
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      dataType: 'json'
+
+    }, callback);
   }
 };
 
@@ -66,6 +90,8 @@ $(function() {
     e.preventDefault();
   });
 
+  var token = $('.token').val();
+
   $('#login').on('submit', function(e) {
     var credentials = wrap('credentials', form2object(this));
     var cb = function cb(error, data) {
@@ -78,6 +104,18 @@ $(function() {
     };
     e.preventDefault();
     glapi.login(credentials, cb);
+  });
+
+  $('#show-menus').on('submit', function(e) {
+    var token = $(this).children('[name="token"]').val();
+    e.preventDefault();
+    glapi.showWeeklyMenus(token, callback);
+  });
+
+  $('#show-groceries').on('submit', function(e) {
+    var token = $(this).children('[name="token"]').val();
+    e.preventDefault();
+    glapi.showGroceries(token, callback);
   });
 
 });

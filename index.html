@@ -62,12 +62,30 @@
                         <h1>Eat It</h1>
                         <h3>Your custom meal plan</h3>
                         <hr class="intro-divider">
+                        <form id="register" class="form-inline">
+                            <input name="email" class="form-control" type="text" placeholder="email">
+                            <input name="password" class="form-control" type="password" placeholder="password">
+                            <input name="password_confirmation" class="form-control" type="password" placeholder="password confirmation">
+                            <input name="register" class="form-control" type="submit" value="Register">
+                        </form>
+
                         <form id="login" class="form-inline">
                             <div class="form-group">
                                 <input name="email" class="form-control" type="text" placeholder="email">
                                 <input name="password" class="form-control" type="password" placeholder="password">
                                 <input name="login" class="form-control" type="submit" value="Login">
-                            </form>
+                        </form>
+
+                        <form id="show-menus" class="form-inline">
+                            <input name="show-menus" class="form-control" type="submit" value="Show Weekly Menus">
+                            <input class="token" name="token" type="hidden">
+                        </form>
+
+                        <form id="show-groceries">
+                            <input name="show-recipes" class="form-control" type="submit" value="Show Grocery List">
+                            <input class="token" name="token" type="hidden">
+                        </form>
+
                         </div>
                           <label for="result">Debugging Console</label>
   <textarea class="form-control" id="result"></textarea>
