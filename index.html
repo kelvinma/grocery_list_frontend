@@ -8,7 +8,7 @@
 
     <!-- Custom CSS -->
     <link href="assets/css/landing-page.css" rel="stylesheet">
-
+    <link href="assets/css/grocery_list.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
@@ -32,16 +32,19 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#register">Register</a>
+                        <a href="#register">Login</a>
                     </li>
                     <li>
-                        <a href="#about">Weekly Menus</a>
+                        <a href="#weeklymenus">Weekly Menus</a>
                     </li>
                     <li>
-                        <a href="#services">Recipes</a>
+                        <a href="#recipes">Recipes</a>
                     </li>
                     <li>
-                        <a href="#contact">Grocery List</a>
+                        <a href="#grocerylist">Grocery List</a>
+                    </li>
+                    <li>
+                        <a href="#logout">Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -52,8 +55,8 @@
 
 
     <!-- Header -->
-    <a name="about"></a>
-    <div class="intro-header">
+    <a name="Sign Up"></a>
+    <div class="intro-header" id="login-header">
         <div class="container">
 
             <div class="row">
@@ -63,36 +66,40 @@
                         <h3>Your custom meal plan</h3>
                         <hr class="intro-divider">
                         <form id="register" class="form-inline">
+                            <h4>Sign Up!</h4>
                             <input name="email" class="form-control" type="text" placeholder="email">
+                            <br>
                             <input name="password" class="form-control" type="password" placeholder="password">
+                            <br>
                             <input name="password_confirmation" class="form-control" type="password" placeholder="password confirmation">
+                            <br>
                             <input name="register" class="form-control" type="submit" value="Register">
+                            <div id="loginshow">
+                            <a href="#">Already Have an Account?</a>
+                            </div>
                         </form>
 
                         <form id="login" class="form-inline">
+                            <h4>Sign In!</h4>
                             <div class="form-group">
                                 <input name="email" class="form-control" type="text" placeholder="email">
+                                <br>
                                 <input name="password" class="form-control" type="password" placeholder="password">
+                                <br>
                                 <input name="login" class="form-control" type="submit" value="Login">
+                                <div id="registershow">
+                                <a href="#">Need an Account?</a>
+                                </div>
+                            </div>
+
                         </form>
 
-                        <form id="show-menus" class="form-inline">
-                            <input name="show-menus" class="form-control" type="submit" value="Show Weekly Menus">
-                            <input class="token" name="token" type="hidden">
-                        </form>
-
-                        <form id="show-groceries">
-                            <input name="show-recipes" class="form-control" type="submit" value="Show Grocery List">
-                            <input class="token" name="token" type="hidden">
-                        </form>
-
-                        </div>
+                            </div>
                           <label for="result">Debugging Console</label>
-  <textarea class="form-control" id="result"></textarea>
+                            <textarea class="form-control" id="result"></textarea>
                     </div>
                 </div>
             </div>
-
         </div>
         <!-- /.container -->
 
@@ -101,20 +108,32 @@
 
     <!-- Page Content -->
 
-  <a  name="services"></a>
+  <a  name="weeklymenus"></a>
     <div class="content-section-a">
 
         <div class="container">
             <div class="row">
-                <div class="col-lg-5 col-sm-6">
+                <div class="col-lg-12 col-sm-12">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Death to the Stock Photo:<br>Special Thanks</h2>
-                    <p class="lead">A special thanks to <a target="_blank" href="http://join.deathtothestockphoto.com/">Death to the Stock Photo</a> for providing the photographs that you see in this template. Visit their website to become a member.</p>
+                        <h2 class="section-heading">Your Weekly Menus</h2>
+                        <p class="lead">
+                        <form id="show-menus" class="form-inline">
+                            <input name="show-menus" class="form-control" type="submit" value="Show Weekly Menus">
+                            <input class="token" name="token" type="hidden">
+                        </form>
+                        <form id="create-menu" class="form-inline">
+                            <input name="create-menu" class="form-control" type="submit" value="Create a New Menu">
+                            <input class="token" name="token" type="hidden">
+                            For the week of:
+                            <input type="text" id="week_of" value="YYYY-MM-DD"/>
+                        </form>
+                    <div id="weeklymenus">
+                    </div>
                 </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+<!--                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <img class="img-responsive" src="assets/img/ipad.png" alt="">
-                </div>
+                </div> -->
             </div>
 
         </div>
@@ -131,11 +150,11 @@
                 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">3D Device Mockups<br>by PSDCovers</h2>
-                    <p class="lead">Turn your 2D designs into high quality, 3D product shots in seconds using free Photoshop actions by <a target="_blank" href="http://www.psdcovers.com/">PSDCovers</a>! Visit their website to download some of their awesome, free photoshop actions!</p>
+                    <h2 class="section-heading">Recipes
+                    <p class="lead">Add Some Recipes to Your Weekly Menu</p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="assets/img/dog.png" alt="">
+<!--                     <img class="img-responsive" src="assets/img/dog.png" alt=""> -->
                 </div>
             </div>
 
@@ -153,11 +172,16 @@
                 <div class="col-lg-5 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Google Web Fonts and<br>Font Awesome Icons</h2>
-                    <p class="lead">This template features the 'Lato' font, part of the <a target="_blank" href="http://www.google.com/fonts">Google Web Font library</a>, as well as <a target="_blank" href="http://fontawesome.io">icons from Font Awesome</a>.</p>
+                    <h2 class="section-heading">Your Grocery List</h2>
+                            <form id="show-groceries">
+                            <input name="show-recipes" class="form-control" type="submit" value="Show Grocery List">
+                            <input class="token" name="token" type="hidden">
+                        </form>
+                        <div id="grocerylist">
+                        </div>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="assets/img/phones.png" alt="">
+<!--                     <img class="img-responsive" src="assets/img/phones.png" alt=""> -->
                 </div>
             </div>
 
@@ -226,6 +250,7 @@
     </footer>
 
 <script src="assets/js/jquery-2.1.4.min.js"></script>
+
 <script src="assets/js/grocery_list_api.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 </body>
