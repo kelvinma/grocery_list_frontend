@@ -147,7 +147,7 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                <div class="col-lg-2 col-lg-offset-2 col-sm-push-9  col-sm-3">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Recipes</h2>
@@ -160,14 +160,44 @@
                     </div>
                 </div>
 
-                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                <div class="col-lg-8 col-sm-pull-3 col-sm-9">
                 <hr class="section-heading-spacer">
                 <div>
-                <div id="recipe-list">
-                </div>
-                <!-- Populates with List of Recipes -->
-                </div>
+                <div class="clearfix"></div>
 
+                <!-- Populates with List of Recipes -->
+
+                <div id="recipe-list" class="table-responsive">
+                <h3 class="section-heading">Available Recipes</h3>
+                   <table class="table table-striped">
+                     <thead>
+                       <tr>
+                         <th>On Menu</th>
+                         <th>Recipe</th>
+                         <th>Which Meal</th>
+                         <th>Style</th>
+                       </tr>
+                     </thead>
+
+                     <tbody id='allRecipes'>
+                       <script id="recipes-index" type="text/x-handlebars-template">
+                         {{#each recipes}}
+                       <tr>
+                         <td>{{#ifOnMenu status value="Open"}}<button type="button" class="btn btn-success">Open</button>
+                         {{else}}<button type="button" class="btn btn-warning">Added</button>
+                         {{/ifOnMenu}}
+                         </td>
+                         <td>{{name}}</td>
+                         <td>{{which_meal}}</td>
+                         <td>{{style}}</td>
+                       </tr>
+                       {{/each}}
+                       </script>
+                     </tbody>
+
+                   </table>
+     </div>
+                </div>
 
                 <div id="recipe-create">
                 <div class="clearfix"></div>
@@ -188,7 +218,8 @@
                         <input name="Submit" class="form-control" type="submit" value="Submit">
                         <input class="token" name="token" type="hidden">
                     </form>
-                </div>
+                    </div>
+                    </div>
                 </div>
             </div>
 
@@ -284,10 +315,10 @@
     </footer>
 
 <script src="assets/js/jquery-2.1.4.min.js"></script>
-
+<script src="assets/js/handlebars-v3.0.3.js"></script>
 <script src="assets/js/grocery_list_api.js"></script>
 <script src="assets/js/bootstrap.js"></script>
-<script src="assets/js/data_templates.js"></script>
+<!-- <script src="assets/js/data_templates.js"></script> -->
 
 <!-- Handlebars Templates -->
 
