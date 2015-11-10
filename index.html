@@ -95,8 +95,8 @@
                         </form>
 
                             </div>
-                          <label for="result">Debugging Console</label>
-                            <textarea class="form-control" id="result"></textarea>
+<!--                           <label for="result">Debugging Console</label>
+                            <textarea class="form-control" id="result"></textarea> -->
                     </div>
                 </div>
             </div>
@@ -150,11 +150,45 @@
                 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Recipes
+                    <h2 class="section-heading">Recipes</h2>
                     <p class="lead">Add Some Recipes to Your Weekly Menu</p>
+                    <div id="view-recipes">
+                        <h4>View Recipe Selection</h4>
+                    </div>
+                    <div id="create-recipe-prompt">
+                        <h4>Submit Your Own Recipe</h4>
+                    </div>
                 </div>
+
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-<!--                     <img class="img-responsive" src="assets/img/dog.png" alt=""> -->
+                <hr class="section-heading-spacer">
+                <div>
+                <div id="recipe-list">
+                </div>
+                <!-- Populates with List of Recipes -->
+                </div>
+
+
+                <div id="recipe-create">
+                <div class="clearfix"></div>
+                    <h3 class="section-heading">Submit A New Recipe</h3>
+                    <form id="create-recipe">
+                        <select name="which_meal" id="which_meal">
+                            <option value="Breakfast">Breakfast</option>
+                            <option value="Lunch">Lunch</option>
+                            <option value="Dinner">Dinner</option>
+                        </select>
+                        <input name="name" class="form-control" type="text" placeholder="Recipe Name" id="recipe-name">
+                        <input class="token" name="token" type="hidden">
+                        <input name="recipe-style" class="form-control" type="text" placeholder="Style" id="recipe-style">
+                        <input name="recipe-description" class="form-control" type="text" placeholder="Recipe Description" id="description">
+                        <input class="token" name="token" type="hidden">
+                        <input name="recipe-instructions" class="form-control" type="text" placeholder="Recipe Instructions" id="instructions">
+                        <input class="token" name="token" type="hidden">
+                        <input name="Submit" class="form-control" type="submit" value="Submit">
+                        <input class="token" name="token" type="hidden">
+                    </form>
+                </div>
                 </div>
             </div>
 
@@ -253,5 +287,22 @@
 
 <script src="assets/js/grocery_list_api.js"></script>
 <script src="assets/js/bootstrap.js"></script>
+<script src="assets/js/data_templates.js"></script>
+
+<!-- Handlebars Templates -->
+
+<script id="recipe-brief" type="text/x-handlebars-template">
+    <h4>{{name}}</h4>
+    {{which_meal}} : {{style}}
+</script>
+<script id="recipes-index" type="text/x-handlebars-template">
+  {{#each recipes}}
+  <li>
+  {{> recipeBrief }}
+  </li>
+  {{/each}}
+</script>
+
+
 </body>
 </html>
