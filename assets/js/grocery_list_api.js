@@ -1,15 +1,14 @@
 'use strict';
 var glapi = {
+  gl: 'http://localhost:3000',
 
-    gl: 'http://localhost:3000',
-
-    ajax: function(config, cb) {
-    $.ajax(config).done(function(data, textStatus, jqxhr) {
-      cb(null, data);
-    }).fail(function(jqxhr, status, error) {
-      cb({jqxher: jqxhr, status: status, error: error});
-    });
-  },
+  ajax: function(config, cb) {
+      $.ajax(config).done(function(data, textStatus, jqxhr) {
+        cb(null, data);
+        }).fail(function(jqxhr, status, error) {
+        cb({jqxher: jqxhr, status: status, error: error});
+        });
+    },
 
   register: function register(credentials, callback) {
     this.ajax({
@@ -20,7 +19,7 @@ var glapi = {
       data: JSON.stringify(credentials),
       dataType: 'json'
     }, callback);
-  },
+    },
 
   login: function login(credentials, callback) {
     this.ajax({
@@ -43,8 +42,8 @@ var glapi = {
       },
       dataType: 'json'
 
-    }, callback);
-  },
+      }, callback);
+    },
     createWeeklyMenu: function (token, callback) {
     this.ajax({
       method: 'POST',
@@ -71,7 +70,8 @@ var glapi = {
 
     }, callback);
   },
-    createRecipe: function (token, callback) {
+
+  createRecipe: function (token, callback) {
     this.ajax({
       method: 'POST',
       url: this.gl + '/recipes',
@@ -92,7 +92,7 @@ var glapi = {
 
     //Authenticated Grocery List Actions
 
-    showGroceries: function (token, callback) {
+  showGroceries: function (token, callback) {
     this.ajax({
       method: 'GET',
       url: this.gl + '/groceries',
@@ -103,17 +103,17 @@ var glapi = {
 
     }, callback);
   },
+
   logout: function (token, callback) {
-  this.ajax({
+    this.ajax({
     method: 'DELETE',
     url: this.gl + '/users/',
     headers: {
       Authorization: 'Token token=' + token
     },
     dataType: 'json'
-
-  }, callback);
-}
+    }, callback);
+  }
 };
 
 $(function() {
@@ -157,9 +157,13 @@ $(function() {
         callback(error);
         return;
       }
-      $('#login-header').hide(400);
+      $('#login-header').hide(500);
+      $('#main-page').show();
+      window.scrollTo(0, 0);
       callback(null, data);
       token = data.user.token;
+      glapi.showRecipes(token, listRecipes);
+      glapi.showWeeklyMenus(token, indexMenus);
     };
     e.preventDefault();
     glapi.login(credentials, cb);
@@ -167,25 +171,26 @@ $(function() {
 
   // Weekly Menu JS
 
-  var showMenus = function(error, data) {
-  if (error) {
-    console.error(error);
-    $('#result').val('status: ' + error.status + ', error: ' +error.error);
-    return;
-  }
-    $('#weeklymenus').html('<p>'+ JSON.stringify(data, null, 4));
+  var menuTemplate = Handlebars.compile($('#menus-index').html());
+
+  var indexMenus = function(error, data) {
+    if (error) {
+      console.error(error);
+      return;
+    }
+      var menuHTML = menuTemplate({weekly_menus: data.weekly_menus});
+      $('#allMenus').html(menuHTML);
   };
 
   $('#show-menus').on('submit', function(e) {
-    var token = $(this).children('[name="token"]').val();
     e.preventDefault();
-    glapi.showWeeklyMenus(token, showMenus);
+    glapi.showWeeklyMenus(token, indexMenus);
   });
 
   $('#create-menu').on('submit',function(e){
     var token = $(this).children('[name="token"]').val();
     e.preventDefault();
-    glapi.createWeeklyMenu(token, showMenus);
+    glapi.createWeeklyMenu(token, indexMenus);
   });
 
   // Recipes JS
@@ -202,15 +207,11 @@ $(function() {
 
    var recipeTemplate = Handlebars.compile($('#recipes-index').html());
 
-   // Chris' code
-   // this.myBookTemplate = Handlebars.compile($('#my-books').html());
-
-
   var listRecipes = function(error, data) {
-  if (error) {
-    console.error(error);
-    return;
-  }
+    if (error) {
+      console.error(error);
+      return;
+    }
     var recipeHTML = recipeTemplate({recipes: data.recipes});
       $('#allRecipes').html(recipeHTML);
       $('#recipe-create').hide();
@@ -254,6 +255,7 @@ $(function() {
   // Behavior JS
 
   $('#login').hide();
+  $('#main-page').hide();
 
   $('#loginshow').click(function(e){
       e.preventDefault();

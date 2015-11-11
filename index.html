@@ -94,29 +94,26 @@
 
                         </form>
 
-                            </div>
-<!--                           <label for="result">Debugging Console</label>
-                            <textarea class="form-control" id="result"></textarea> -->
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /.container -->
-
     </div>
+    <!-- /.container -->
+
     <!-- /.intro-header -->
 
     <!-- Page Content -->
-
+<div id="main-page">
   <a  name="weeklymenus"></a>
     <div class="content-section-a">
 
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 col-sm-12">
+                <div class="col-lg-2 col-lg-offset-2 col-sm-push-9  col-sm-3">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                        <h2 class="section-heading">Your Weekly Menus</h2>
+                        <h2 class="section-heading">Weekly Menus</h2>
                         <p class="lead">
                         <form id="show-menus" class="form-inline">
                             <input name="show-menus" class="form-control" type="submit" value="Show Weekly Menus">
@@ -124,16 +121,28 @@
                         </form>
                         <form id="create-menu" class="form-inline">
                             <input name="create-menu" class="form-control" type="submit" value="Create a New Menu">
-                            <input class="token" name="token" type="hidden">
+                            <input class="token" name="token" type="hidden"><br>
                             For the week of:
                             <input type="text" id="week_of" value="YYYY-MM-DD"/>
                         </form>
+
+                </div>
+                <div class="col-lg-8 col-sm-pull-3 col-sm-9">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
                     <div id="weeklymenus">
+                    <h3 class="section-heading">Your Menus</h3>
+                        <ul>
+                        <div id='allMenus'>
+                       <script id="menus-index" type="text/x-handlebars-template">
+                        {{#each weekly_menus}}
+                            <li>{{week_of}} for User ID: {{user_id}}</li>
+                        {{/each}}
+                       </script>
+                        </div>
+                        </ul>
                     </div>
                 </div>
-<!--                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="assets/img/ipad.png" alt="">
-                </div> -->
             </div>
 
         </div>
@@ -161,72 +170,69 @@
                 </div>
 
                 <div class="col-lg-8 col-sm-pull-3 col-sm-9">
-                <hr class="section-heading-spacer">
-                <div>
-                <div class="clearfix"></div>
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
 
-                <!-- Populates with List of Recipes -->
+                    <!-- Populates with List of Recipes -->
 
-                <div id="recipe-list" class="table-responsive">
-                <h3 class="section-heading">Available Recipes</h3>
-                   <table class="table table-striped">
-                     <thead>
-                       <tr>
-                         <th>On Menu</th>
-                         <th>Recipe</th>
-                         <th>Which Meal</th>
-                         <th>Style</th>
-                       </tr>
-                     </thead>
+                    <div id="recipe-list" class="table-responsive">
+                        <h3 class="section-heading">Available Recipes</h3>
+                       <table class="table table-striped">
+                         <thead>
+                           <tr>
+                             <th>On Menu</th>
+                             <th>Recipe</th>
+                             <th>Which Meal</th>
+                             <th>Style</th>
+                           </tr>
+                         </thead>
 
-                     <tbody id='allRecipes'>
-                       <script id="recipes-index" type="text/x-handlebars-template">
-                         {{#each recipes}}
-                       <tr>
-                         <td>{{#ifOnMenu status value="Open"}}<button type="button" class="btn btn-success">Open</button>
-                         {{else}}<button type="button" class="btn btn-warning">Added</button>
-                         {{/ifOnMenu}}
-                         </td>
-                         <td>{{name}}</td>
-                         <td>{{which_meal}}</td>
-                         <td>{{style}}</td>
-                       </tr>
-                       {{/each}}
-                       </script>
-                     </tbody>
+                         <tbody id='allRecipes'>
+                           <script id="recipes-index" type="text/x-handlebars-template">
+                             {{#each recipes}}
+                           <tr>
+                             <td>{{#ifOnMenu status value="Open"}}<button type="button" class="btn btn-success">Open</button>
+                             {{else}}<button type="button" class="btn btn-warning">Added</button>
+                             {{/ifOnMenu}}
+                             </td>
+                             <td>{{name}}</td>
+                             <td>{{which_meal}}</td>
+                             <td>{{style}}</td>
+                           </tr>
+                           {{/each}}
+                           </script>
+                         </tbody>
 
-                   </table>
-     </div>
-                </div>
-
-                <div id="recipe-create">
-                <div class="clearfix"></div>
-                    <h3 class="section-heading">Submit A New Recipe</h3>
-                    <form id="create-recipe">
-                        <select name="which_meal" id="which_meal">
-                            <option value="Breakfast">Breakfast</option>
-                            <option value="Lunch">Lunch</option>
-                            <option value="Dinner">Dinner</option>
-                        </select>
-                        <input name="name" class="form-control" type="text" placeholder="Recipe Name" id="recipe-name">
-                        <input class="token" name="token" type="hidden">
-                        <input name="recipe-style" class="form-control" type="text" placeholder="Style" id="recipe-style">
-                        <input name="recipe-description" class="form-control" type="text" placeholder="Recipe Description" id="description">
-                        <input class="token" name="token" type="hidden">
-                        <input name="recipe-instructions" class="form-control" type="text" placeholder="Recipe Instructions" id="instructions">
-                        <input class="token" name="token" type="hidden">
-                        <input name="Submit" class="form-control" type="submit" value="Submit">
-                        <input class="token" name="token" type="hidden">
-                    </form>
+                       </table>
                     </div>
+
+                    <div id="recipe-create">
+                        <div class="clearfix"></div>
+                        <h3 class="section-heading">Submit A New Recipe</h3>
+                        <form id="create-recipe">
+                            <select name="which_meal" id="which_meal">
+                                <option value="Breakfast">Breakfast</option>
+                                <option value="Lunch">Lunch</option>
+                                <option value="Dinner">Dinner</option>
+                            </select>
+                            <input name="name" class="form-control" type="text" placeholder="Recipe Name" id="recipe-name">
+                            <input class="token" name="token" type="hidden">
+                            <input name="recipe-style" class="form-control" type="text" placeholder="Style" id="recipe-style">
+                            <input name="recipe-description" class="form-control" type="text" placeholder="Recipe Description" id="description">
+                            <input class="token" name="token" type="hidden">
+                            <input name="recipe-instructions" class="form-control" type="text" placeholder="Recipe Instructions" id="instructions">
+                            <input class="token" name="token" type="hidden">
+                            <input name="Submit" class="form-control" type="submit" value="Submit">
+                            <input class="token" name="token" type="hidden">
+                        </form>
                     </div>
                 </div>
             </div>
-
         </div>
-        <!-- /.container -->
 
     </div>
+        <!-- /.container -->
+
     <!-- /.content-section-b -->
 
     <div class="content-section-a">
@@ -246,7 +252,7 @@
                         </div>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-<!--                     <img class="img-responsive" src="assets/img/phones.png" alt=""> -->
+    <!--                     <img class="img-responsive" src="assets/img/phones.png" alt=""> -->
                 </div>
             </div>
 
@@ -255,36 +261,7 @@
 
     </div>
     <!-- /.content-section-a -->
-
-  <a  name="contact"></a>
-    <div class="banner">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-6">
-                    <h2>Connect to Start Bootstrap:</h2>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="list-inline banner-social-buttons">
-                        <li>
-                            <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.banner -->
+</div>
 
     <!-- Footer -->
     <footer>
@@ -308,7 +285,7 @@
                             <a href="#contact">Contact</a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted small">Copyright &copy; Your Company 2014. All Rights Reserved</p>
+                    <p class="copyright text-muted small">Copyright &copy; Kelvin Ma 2015. All Rights Reserved</p>
                 </div>
             </div>
         </div>
@@ -318,21 +295,6 @@
 <script src="assets/js/handlebars-v3.0.3.js"></script>
 <script src="assets/js/grocery_list_api.js"></script>
 <script src="assets/js/bootstrap.js"></script>
-<!-- <script src="assets/js/data_templates.js"></script> -->
-
-<!-- Handlebars Templates -->
-
-<script id="recipe-brief" type="text/x-handlebars-template">
-    <h4>{{name}}</h4>
-    {{which_meal}} : {{style}}
-</script>
-<script id="recipes-index" type="text/x-handlebars-template">
-  {{#each recipes}}
-  <li>
-  {{> recipeBrief }}
-  </li>
-  {{/each}}
-</script>
 
 
 </body>
