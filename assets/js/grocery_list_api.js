@@ -13,7 +13,6 @@ var glapi = {
   register: function register(credentials, callback) {
     this.ajax({
       method: 'POST',
-      // url: 'http://httpbin.org/post',
       url: this.gl + '/register',
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(credentials),
@@ -24,7 +23,6 @@ var glapi = {
   login: function login(credentials, callback) {
     this.ajax({
       method: 'POST',
-      // url: 'http://httpbin.org/post',
       url: this.gl + '/login',
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(credentials),
@@ -75,6 +73,18 @@ var glapi = {
     this.ajax({
       method: 'GET',
       url: this.gl + '/recipes',
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      dataType: 'json'
+
+    }, callback);
+  },
+
+  showRecipe: function (token, recipe_id, callback) {
+    this.ajax({
+      method: 'GET',
+      url: this.gl + '/recipes/' + recipe_id,
       headers: {
         Authorization: 'Token token=' + token
       },
@@ -222,6 +232,7 @@ $(function() {
 
   $('#allMenus').on('click', '.show-single-menu', function(e){
     var menu_id = this.dataset.menu;
+    $('#current-menu').html(this.dataset.week);
     var token = $('.token').val();
     e.preventDefault();
     glapi.showWeeklyMenu(token, menu_id, singleMenu);
@@ -241,14 +252,14 @@ $(function() {
      }
    });
 
-  var recipeTemplate = Handlebars.compile($('#recipes-index').html());
+  var recipesTemplate = Handlebars.compile($('#recipes-index').html());
 
   var listRecipes = function(error, data) {
     if (error) {
       console.error(error);
       return;
     }
-    var recipeHTML = recipeTemplate({recipes: data.recipes});
+    var recipeHTML = recipesTemplate({recipes: data.recipes});
       $('#allRecipes').html(recipeHTML);
       $('#recipe-create').hide();
       $('#recipe-list').show();
@@ -259,6 +270,35 @@ $(function() {
     e.preventDefault();
     glapi.showRecipes(token, listRecipes);
   });
+
+
+  $('#singleMenuTable, #allRecipes').on('click', '.single-recipe', function(e){
+    var recipe_id = this.dataset.recipe;
+    var token = $('.token').val();
+    e.preventDefault();
+    glapi.showRecipe(token, recipe_id, showSingleRecipe);
+    // $('#singleMenuTable').show();
+    // $('#allMenus').hide();
+    });
+
+  var singleRecipeTemplate = Handlebars.compile($('#single-recipe-template').html());
+
+  var showSingleRecipe = function(error,data) {
+    if (error){
+      console.error(error);
+      return;
+    }
+    console.log(data.recipe);
+    var recipeHTML = singleRecipeTemplate(data.recipe);
+      $('#single-recipe').html(recipeHTML);
+  };
+
+Handlebars.registerHelper('breaklines', function(text) {
+    text = Handlebars.Utils.escapeExpression(text);
+    text = text.replace(/(\r\n|\n|\r)/gm, '<li>');
+    return new Handlebars.SafeString(text);
+});
+
 
   $('#create-recipe').on('submit',function(e){
     var token = $('.token').val();

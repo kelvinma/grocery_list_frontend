@@ -114,8 +114,9 @@
                     <div class="clearfix"></div>
                         <h2 class="section-heading">Weekly Menus</h2>
                         <p class="lead">
+                        <button class="btn btn-success" id="current-menu"></button>
                         <form id="show-menus" class="form-inline">
-                            <input name="show-menus" class="form-control" type="submit" value="Show Weekly Menus">
+                            <input name="show-menus" class="form-control" type="submit" value="Recent Menus">
                             <input class="token" name="token" type="hidden">
                         </form>
                         <br>
@@ -135,7 +136,7 @@
                                     <div id='allMenus'>
                                         <script id="menus-index" type="text/x-handlebars-template">
                                             {{#each weekly_menus}}
-                                        <li class='show-single-menu' class="btn btn-primary btn-block" data-menu={{id}}>WEEK OF - {{week_of}}</li>
+                                        <li class="show-single-menu btn btn-primary btn-block" data-menu={{id}}>WEEK OF - {{week_of}}</li>
                                             {{/each}}
                                         </script>
                             </div>
@@ -144,10 +145,11 @@
                                        <table class="table table-striped">
                                          <thead>
                                            <tr>
+                                             <th>Details</th>
                                              <th>Recipe</th>
                                              <th>Which Meal</th>
                                              <th>Style</th>
-                                             <th></th>
+                                             <th>Remove</th>
                                            </tr>
                                          </thead>
 
@@ -155,10 +157,11 @@
                                            <script id="single-menu-template" type="text/x-handlebars-template">
                                              {{#each recipes}}
                                            <tr>
+                                           <td><button type="button" class="btn btn-default btn-sm single-recipe" data-recipe={{id}}><div class="glyphicon glyphicon-asterisk"></div></button></td>
                                              <td>{{name}}</td>
                                              <td>{{which_meal}}</td>
                                              <td>{{style}}</td>
-                                            <td><button type="button" class="btn btn-default btn-sm" data-recipe-id={{id}}>Details</button></td>
+                                            <td><button type"button" class="glyphicon glyphicon-remove"></td>
                                            </tr>
                                            {{/each}}
                                            </script>
@@ -166,7 +169,6 @@
 
                                        </table>
                                     </div>
-                            </ul>
                         </div>
                 </div>
             </div>
@@ -208,7 +210,7 @@
                              <th>Recipe</th>
                              <th>Which Meal</th>
                              <th>Style</th>
-                             <th></th>
+                             <th>Details</th>
                            </tr>
                          </thead>
 
@@ -223,7 +225,7 @@
                              <td>{{name}}</td>
                              <td>{{which_meal}}</td>
                              <td>{{style}}</td>
-                             <td><button type="button" class="btn btn-default btn-sm" data-recipe-id={{id}}>Details</button>
+                             <td><button type="button" class="btn btn-default btn-sm single-recipe" data-recipe={{id}}><div class="glyphicon glyphicon-asterisk"></div></button></td>
                            </tr>
                            {{/each}}
                            </script>
@@ -259,6 +261,40 @@
     </div>
         <!-- /.container -->
 
+<a name="recipe_detail"></a>
+    <div class="content-section-b">
+
+        <div class="container">
+            <div class="row">
+                <h2 class="section-heading">Recipe Details</h2>
+                <div id="single-recipe">
+                        <script id="single-recipe-template" type="text/x-handlebars-template">
+                            <h3>{{name}}</h3>
+                            <div class="col-lg-2 col-sm-push-9 col-sm-3">
+                            <div class="clearfix"></div>
+                                <ul><h4>Ingredients</h4>
+                                    {{#each ingredients}}
+                                    <li>{{ingredient_name}}, {{amount}}</li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+
+                            <div class="col-lg-8 col-sm-pull-3 col-sm-9">
+                            <div class="clearfix"></div>
+                                <h4>Description</h4>
+                                    <p>{{description}}</p>
+                                <h4>Instructions</h4>
+                                <ol>
+                                    <li>{{breaklines instructions}}
+                                </ol>
+                            </div>
+                        </script>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
     <!-- /.content-section-b -->
 
 
