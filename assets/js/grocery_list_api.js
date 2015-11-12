@@ -44,7 +44,19 @@ var glapi = {
 
       }, callback);
     },
-    createWeeklyMenu: function (token, callback) {
+  showWeeklyMenu: function(token, weekly_menu_id, callback) {
+    this.ajax({
+      method: 'GET',
+      url: this.gl + '/weekly_menus/' + weekly_menu_id,
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      dataType: 'json'
+
+      }, callback);
+    },
+
+  createWeeklyMenu: function (token, callback) {
     this.ajax({
       method: 'POST',
       url: this.gl + '/weekly_menus',
@@ -148,8 +160,6 @@ $(function() {
     e.preventDefault();
   });
 
-  var token;
-
   $('#login').on('submit', function(e) {
     var credentials = wrap('credentials', form2object(this));
     var cb = function cb(error, data) {
@@ -161,12 +171,14 @@ $(function() {
       $('#main-page').show();
       window.scrollTo(0, 0);
       callback(null, data);
-      token = data.user.token;
+      var token = data.user.token;
+      $('.token').val(data.user.token);
       glapi.showRecipes(token, listRecipes);
       glapi.showWeeklyMenus(token, indexMenus);
     };
     e.preventDefault();
     glapi.login(credentials, cb);
+
   });
 
   // Weekly Menu JS
@@ -183,15 +195,41 @@ $(function() {
   };
 
   $('#show-menus').on('submit', function(e) {
+    var token = $('.token').val();
     e.preventDefault();
     glapi.showWeeklyMenus(token, indexMenus);
+      $('#singleMenuTable').hide();
+      $('#allMenus').show();
   });
 
   $('#create-menu').on('submit',function(e){
-    var token = $(this).children('[name="token"]').val();
+    var token = $('.token').val();
     e.preventDefault();
     glapi.createWeeklyMenu(token, indexMenus);
   });
+
+  // Meals JS
+
+  var singleMenuTemplate = Handlebars.compile($('#single-menu-template').html());
+
+  var singleMenu = function(error, data) {
+    if (error) {
+      console.error(error);
+      return;
+    }
+      console.log(data.weekly_menu.recipes);
+      var singleMenuHTML = singleMenuTemplate({recipes: data.weekly_menu.recipes});
+      $('#singleMenu').html(singleMenuHTML);
+  };
+
+  $('#allMenus').on('click', '#show-single-menu', function(e){
+    var menu_id = this.dataset.menu;
+    var token = $('.token').val();
+    e.preventDefault();
+    glapi.showWeeklyMenu(token, menu_id, singleMenu);
+    $('#singleMenuTable').show();
+    $('#allMenus').hide();
+    });
 
   // Recipes JS
 
@@ -205,7 +243,7 @@ $(function() {
      }
    });
 
-   var recipeTemplate = Handlebars.compile($('#recipes-index').html());
+  var recipeTemplate = Handlebars.compile($('#recipes-index').html());
 
   var listRecipes = function(error, data) {
     if (error) {
@@ -218,14 +256,14 @@ $(function() {
       $('#recipe-list').show();
   };
 
-
   $('#view-recipes').click(function(e){
+    var token = $('.token').val();
     e.preventDefault();
     glapi.showRecipes(token, listRecipes);
   });
 
   $('#create-recipe').on('submit',function(e){
-    // var token = $(this).children('[name="token"]').val();
+    var token = $('.token').val();
     e.preventDefault();
     glapi.createRecipe(token, listRecipes);
   });
@@ -275,5 +313,7 @@ $(function() {
     $('#recipe-create').show();
     $('#recipe-list').hide();
   });
+
+  $('#singleMenuTable').hide();
 
 });

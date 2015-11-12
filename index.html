@@ -32,10 +32,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#register">Login</a>
+                        <a href="#SignUp">Login</a>
                     </li>
                     <li>
-                        <a href="#weeklymenus">Weekly Menus</a>
+                        <a href="#weekly_menus">Weekly Menus</a>
                     </li>
                     <li>
                         <a href="#recipes">Recipes</a>
@@ -55,7 +55,7 @@
 
 
     <!-- Header -->
-    <a name="Sign Up"></a>
+    <a name="SignUp"></a>
     <div class="intro-header" id="login-header">
         <div class="container">
 
@@ -105,7 +105,7 @@
 
     <!-- Page Content -->
 <div id="main-page">
-  <a  name="weeklymenus"></a>
+  <a name="weekly_menus"></a>
     <div class="content-section-a">
 
         <div class="container">
@@ -130,18 +130,45 @@
                 <div class="col-lg-8 col-sm-pull-3 col-sm-9">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <div id="weeklymenus">
-                    <h3 class="section-heading">Your Menus</h3>
-                        <ul>
-                        <div id='allMenus'>
-                       <script id="menus-index" type="text/x-handlebars-template">
-                        {{#each weekly_menus}}
-                            <li>{{week_of}} for User ID: {{user_id}}</li>
-                        {{/each}}
-                       </script>
+                        <div id="weeklymenus">
+                            <h3 class="section-heading">Your Menus</h3>
+                                <ul>
+                                    <div id='allMenus'>
+                                        <script id="menus-index" type="text/x-handlebars-template">
+                                            {{#each weekly_menus}}
+                                        <li id='show-single-menu' class="btn btn-primary btn-block" data-menu={{id}}>WEEK OF - {{week_of}}</li>
+                                            {{/each}}
+                                        </script>
+                            </div>
+                                </ul>
+                                    <div id='singleMenuTable' class="table-responsive">
+                                       <table class="table table-striped">
+                                         <thead>
+                                           <tr>
+                                             <th>Recipe</th>
+                                             <th>Which Meal</th>
+                                             <th>Style</th>
+                                             <th></th>
+                                           </tr>
+                                         </thead>
+
+                                         <tbody id='singleMenu'>
+                                           <script id="single-menu-template" type="text/x-handlebars-template">
+                                             {{#each recipes}}
+                                           <tr>
+                                             <td>{{name}}</td>
+                                             <td>{{which_meal}}</td>
+                                             <td>{{style}}</td>
+                                            <td><button type="button" class="btn btn-default" data-recipe-id={{id}}>Details</button></td>
+                                           </tr>
+                                           {{/each}}
+                                           </script>
+                                         </tbody>
+
+                                       </table>
+                                    </div>
+                            </ul>
                         </div>
-                        </ul>
-                    </div>
                 </div>
             </div>
 
@@ -150,7 +177,7 @@
 
     </div>
     <!-- /.content-section-a -->
-
+<a name="recipes"></a>
     <div class="content-section-b">
 
         <div class="container">
@@ -184,6 +211,7 @@
                              <th>Recipe</th>
                              <th>Which Meal</th>
                              <th>Style</th>
+                             <th></th>
                            </tr>
                          </thead>
 
@@ -198,6 +226,7 @@
                              <td>{{name}}</td>
                              <td>{{which_meal}}</td>
                              <td>{{style}}</td>
+                             <td><button type="button" class="btn btn-default">Details</button>
                            </tr>
                            {{/each}}
                            </script>
@@ -234,6 +263,7 @@
         <!-- /.container -->
 
     <!-- /.content-section-b -->
+
 
     <div class="content-section-a">
 
