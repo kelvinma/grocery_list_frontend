@@ -114,6 +114,8 @@
                     <div class="clearfix"></div>
                         <h2 class="section-heading">Weekly Menus</h2>
                         <p class="lead">
+                        Current Menu
+                        <br>
                         <button class="btn btn-success" id="current-menu"></button>
                         <form id="show-menus" class="form-inline">
                             <input name="show-menus" class="form-control" type="submit" value="Recent Menus">
@@ -136,7 +138,7 @@
                                     <div id='allMenus'>
                                         <script id="menus-index" type="text/x-handlebars-template">
                                             {{#each weekly_menus}}
-                                        <li class="show-single-menu btn btn-primary btn-block" data-menu={{id}}>WEEK OF - {{week_of}}</li>
+                                        <li class="show-single-menu btn btn-primary btn-block" data-menu={{id}} data-week={{week_of}}>WEEK OF - {{week_of}}</li>
                                             {{/each}}
                                         </script>
                             </div>
@@ -152,16 +154,15 @@
                                              <th>Remove</th>
                                            </tr>
                                          </thead>
-
                                          <tbody id='singleMenu'>
                                            <script id="single-menu-template" type="text/x-handlebars-template">
-                                             {{#each recipes}}
+                                             {{#each meals}}
                                            <tr>
                                            <td><button type="button" class="btn btn-default btn-sm single-recipe" data-recipe={{id}}><div class="glyphicon glyphicon-asterisk"></div></button></td>
-                                             <td>{{name}}</td>
-                                             <td>{{which_meal}}</td>
-                                             <td>{{style}}</td>
-                                            <td><button type"button" class="glyphicon glyphicon-remove"></td>
+                                             <td>{{recipe_name}}</td>
+                                             <td>{{recipe_which_meal}}</td>
+                                             <td>{{recipe_style}}</td>
+                                            <td><button type="button" class="glyphicon glyphicon-remove delete-meal" data-meal={{id}}></td>
                                            </tr>
                                            {{/each}}
                                            </script>
@@ -218,9 +219,8 @@
                            <script id="recipes-index" type="text/x-handlebars-template">
                              {{#each recipes}}
                            <tr>
-                             <td>{{#ifAvailable status value="Open"}}<button type="button" class="btn btn-success btn-sm">Add?</button>
-                             {{else}}<button type="button" class="btn btn-warning" data-recipe-id={{id}}>Added</button>
-                             {{/ifAvailable}}
+                             <td><button class="glyphicon glyphicon-plus add-recipe" type="button" data-recipe={{id}}></button>
+
                              </td>
                              <td>{{name}}</td>
                              <td>{{which_meal}}</td>
@@ -246,9 +246,9 @@
                             <input name="name" class="form-control" type="text" placeholder="Recipe Name" id="recipe-name">
                             <input class="token" name="token" type="hidden">
                             <input name="recipe-style" class="form-control" type="text" placeholder="Style" id="recipe-style">
-                            <input name="recipe-description" class="form-control" type="text" placeholder="Recipe Description" id="description">
+                            <input name="recipe-description" class="form-control" type="text" placeholder="Recipe Description" id="description" rows="4">
                             <input class="token" name="token" type="hidden">
-                            <input name="recipe-instructions" class="form-control" type="text" placeholder="Recipe Instructions" id="instructions">
+                            <input name="recipe-instructions" class="form-control" type="text" placeholder="Recipe Instructions" id="instructions" rows="25">
                             <input class="token" name="token" type="hidden">
                             <input name="Submit" class="form-control" type="submit" value="Submit">
                             <input class="token" name="token" type="hidden">

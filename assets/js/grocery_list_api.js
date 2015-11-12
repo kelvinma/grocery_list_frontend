@@ -69,6 +69,33 @@ var glapi = {
     }, callback);
   },
 
+  createMeal: function (token, callback) {
+    this.ajax({
+      method: 'POST',
+      url: this.gl + '/meals',
+      data: { meal: {
+        weekly_menu_id: $('#current-menu').val(),
+        recipe_id: $('#allRecipes').val() }
+      },
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      dataType: 'json'
+
+    }, callback);
+  },
+  deleteMeal: function (token, meal_id, callback) {
+    this.ajax({
+      method: 'DELETE',
+      url: this.gl + '/meals/' + $('#singleMenu').val(),
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      dataType: 'json'
+
+    }, callback);
+  },
+
   showRecipes: function (token, callback) {
     this.ajax({
       method: 'GET',
@@ -97,6 +124,25 @@ var glapi = {
     this.ajax({
       method: 'POST',
       url: this.gl + '/recipes',
+      data: { recipe: {
+        name: $('#recipe-name').val(),
+        which_meal: $('#which_meal').val(),
+        style: $('#recipe-style').val(),
+        description: $('#recipe-description').val(),
+        instructions: $('#recipe-instructions').val() }
+      },
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      dataType: 'json'
+
+    }, callback);
+  },
+
+    updateRecipe: function (token, recipe_id, callback) {
+    this.ajax({
+      method: 'PATCH',
+      url: this.gl + '/recipes' + recipe_id,
       data: { recipe: {
         name: $('#recipe-name').val(),
         which_meal: $('#which_meal').val(),
@@ -225,14 +271,15 @@ $(function() {
       console.error(error);
       return;
     }
-      console.log(data.weekly_menu.recipes);
-      var singleMenuHTML = singleMenuTemplate({recipes: data.weekly_menu.recipes});
+      console.log(data.weekly_menu.meals);
+      var singleMenuHTML = singleMenuTemplate({meals: data.weekly_menu.meals});
       $('#singleMenu').html(singleMenuHTML);
   };
 
   $('#allMenus').on('click', '.show-single-menu', function(e){
     var menu_id = this.dataset.menu;
     $('#current-menu').html(this.dataset.week);
+    $('#current-menu').val(this.dataset.menu);
     var token = $('.token').val();
     e.preventDefault();
     glapi.showWeeklyMenu(token, menu_id, singleMenu);
@@ -242,11 +289,44 @@ $(function() {
 
   // Recipes JS
 
+  // Create Meals - Adds Recipes to Weekly Menu in the form of Meals
+
+
+  $('#allRecipes').on('click','.add-recipe', function(){
+    var token = $('.token').val();
+    $('#allRecipes').val(this.dataset.recipe);
+    glapi.createMeal(token, function(error){
+      if (error) {
+        console.error(error);
+        return;
+      }
+    });
+      var menu_id = $('#current-menu').val();
+      glapi.showWeeklyMenu(token, menu_id, singleMenu);
+    });
+
+    // Delete Meals
+
+    $('#singleMenuTable').on('click', '.delete-meal', function(e){
+    var meal_id = this.dataset.meal;
+    $('#singleMenu').val(meal_id);
+    var token = $('.token').val();
+    e.preventDefault();
+    glapi.deleteMeal(token, meal_id, function(error){
+      if (error) {
+        console.error(error);
+        return;
+      }
+    });
+      var menu_id = $('#current-menu').val();
+      glapi.showWeeklyMenu(token, menu_id, singleMenu);
+    });
+
   // HandleBars
 
   Handlebars.registerHelper('ifAvailable', function (conditionalVariable, options){
      if (conditionalVariable === options.hash.value) {
-       return options.fn(this)
+       return options.fn(this);
      } else {
        return options.inverse(this);
      }
@@ -270,7 +350,6 @@ $(function() {
     e.preventDefault();
     glapi.showRecipes(token, listRecipes);
   });
-
 
   $('#singleMenuTable, #allRecipes').on('click', '.single-recipe', function(e){
     var recipe_id = this.dataset.recipe;
