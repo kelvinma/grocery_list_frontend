@@ -145,15 +145,6 @@ $(function() {
     return wrapper;
   };
 
-  var callback = function callback(error, data) {
-    if (error) {
-      console.error(error);
-      $('#result').val('status: ' + error.status + ', error: ' +error.error);
-      return;
-    }
-    $('#result').val(JSON.stringify(data, null, 4));
-  };
-
   $('#register').on('submit', function(e) {
     var credentials = wrap('credentials', form2object(this));
     glapi.register(credentials, function(error, data){
@@ -178,9 +169,8 @@ $(function() {
       $('#login-header').hide(500);
       $('#main-page').show();
       window.scrollTo(0, 0);
-      callback(null, data);
-      var token = data.user.token;
       $('.token').val(data.user.token);
+      var token = $('.token').val();
       glapi.showRecipes(token, listRecipes);
       glapi.showWeeklyMenus(token, indexMenus);
     };
@@ -230,7 +220,7 @@ $(function() {
       $('#singleMenu').html(singleMenuHTML);
   };
 
-  $('#allMenus').on('click', '#show-single-menu', function(e){
+  $('#allMenus').on('click', '.show-single-menu', function(e){
     var menu_id = this.dataset.menu;
     var token = $('.token').val();
     e.preventDefault();
@@ -243,7 +233,7 @@ $(function() {
 
   // HandleBars
 
-  Handlebars.registerHelper('ifOnMenu', function (conditionalVariable, options){
+  Handlebars.registerHelper('ifAvailable', function (conditionalVariable, options){
      if (conditionalVariable === options.hash.value) {
        return options.fn(this)
      } else {
