@@ -220,13 +220,13 @@
                              {{#each recipes}}
                            <tr>
                              <td>{{#ifOnMenu status value="Open"}}<button type="button" class="btn btn-success">Open</button>
-                             {{else}}<button type="button" class="btn btn-warning">Added</button>
+                             {{else}}<button type="button" class="btn btn-warning" data-recipe-id={{id}}>Added</button>
                              {{/ifOnMenu}}
                              </td>
                              <td>{{name}}</td>
                              <td>{{which_meal}}</td>
                              <td>{{style}}</td>
-                             <td><button type="button" class="btn btn-default">Details</button>
+                             <td><button type="button" class="btn btn-default" data-recipe-id={{id}}>Details</button>
                            </tr>
                            {{/each}}
                            </script>

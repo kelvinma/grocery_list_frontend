@@ -14,7 +14,7 @@ var glapi = {
     this.ajax({
       method: 'POST',
       // url: 'http://httpbin.org/post',
-      url: this.gl + '/users',
+      url: this.gl + '/register',
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(credentials),
       dataType: 'json'
@@ -131,7 +131,7 @@ var glapi = {
 $(function() {
   var form2object = function(form) {
     var data = {};
-    $(form).find("input").each(function(index, element) {
+    $(form).find('input').each(function(index, element) {
       var type = $(this).attr('type');
       if ($(this).attr('name') && type !== 'submit' && type !== 'hidden') {
         data[$(this).attr('name')] = $(this).val();
@@ -156,7 +156,15 @@ $(function() {
 
   $('#register').on('submit', function(e) {
     var credentials = wrap('credentials', form2object(this));
-    glapi.register(credentials, callback);
+    glapi.register(credentials, function(error, data){
+        if (error) {
+          alert('Registration Failed');
+        return;
+      }
+        alert('Success!');
+        $('#login').show(400);
+        $('#register').hide(400);
+    });
     e.preventDefault();
   });
 
@@ -164,7 +172,7 @@ $(function() {
     var credentials = wrap('credentials', form2object(this));
     var cb = function cb(error, data) {
       if (error) {
-        callback(error);
+        alert('Login Failed');
         return;
       }
       $('#login-header').hide(500);
