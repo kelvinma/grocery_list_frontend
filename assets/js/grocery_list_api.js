@@ -352,7 +352,16 @@ $(function() {
     glapi.showRecipes(token, listRecipes);
   });
 
-  $('#singleMenuTable, #allRecipes').on('click', '.single-recipe', function(e){
+  $('#allRecipes').on('click', '.single-recipe', function(e){
+    var recipe_id = this.dataset.recipe;
+    var token = $('.token').val();
+    e.preventDefault();
+    glapi.showRecipe(token, recipe_id, showSingleRecipe);
+    // $('#singleMenuTable').show();
+    // $('#allMenus').hide();
+    });
+
+    $('#singleMenuTable').on('click', '.single-recipe', function(e){
     var recipe_id = this.dataset.recipe;
     var token = $('.token').val();
     e.preventDefault();
