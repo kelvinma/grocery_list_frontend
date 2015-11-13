@@ -1,6 +1,6 @@
 'use strict';
 var glapi = {
-  gl: 'http://localhost:3000',
+  gl: 'https://salty-depths-5457.herokuapp.com/',
 
   ajax: function(config, cb) {
       $.ajax(config).done(function(data, textStatus, jqxhr) {
