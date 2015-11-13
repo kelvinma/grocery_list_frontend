@@ -172,10 +172,10 @@ var glapi = {
     }, callback);
   },
 
-  logout: function (token, callback) {
+  logout: function (token, user_id, callback) {
     this.ajax({
     method: 'DELETE',
-    url: this.gl + '/users/',
+    url: this.gl + '/logout/' + user_id,
     headers: {
       Authorization: 'Token token=' + token
     },
@@ -227,6 +227,7 @@ $(function() {
       window.scrollTo(0, 0);
       $('.token').val(data.user.token);
       var token = $('.token').val();
+      $('#logout').val(data.user.id);
       glapi.showRecipes(token, listRecipes);
       glapi.showWeeklyMenus(token, indexMenus);
     };
@@ -401,10 +402,18 @@ Handlebars.registerHelper('breaklines', function(text) {
     glapi.showGroceries(token, showGroceries);
   });
 
-  $('#logout').on('submit', function(e) {
-    // var token = $(this).children('[name="token"]').val();
+  $('#logout').click(function(e) {
+    var token = $('.token').val();
+    var user_id = $('#logout').val();
     e.preventDefault();
-    glapi.logout(token, callback);
+    glapi.logout(token, user_id, function(error){
+      if (error) {
+        console.error(error);
+        return;
+      }
+       $('#main-page').hide();
+       $('#login-header').show(500);
+    });
   });
 
   // Behavior JS
