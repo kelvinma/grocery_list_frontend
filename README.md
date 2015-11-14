@@ -1,9 +1,9 @@
 # Eat It! - Your Custom Meal Plan
 
-* (https://github.com/kelvinma/grocery_list_frontend/tree/development "Client-side GitHub Repo")
-* (https://github.com/kelvinma/grocery_list_api/tree/development "Server-side GitHub Repo")
+* https://github.com/kelvinma/grocery_list_frontend/tree/development "Client-side GitHub Repo"
+* https://github.com/kelvinma/grocery_list_api/tree/development "Server-side GitHub Repo"
 
-* (http://kelvinma.github.io/grocery_list_frontend/ "Live Application")
+* http://kelvinma.github.io/grocery_list_frontend/ "Live Application"
 
 ## Introduction
 
@@ -53,7 +53,7 @@ Wireframing for this project was done via Bootstrap templating. By starting with
 
 The server-side application is built using Ruby on Rails with a PostgreSQL database. Initial data mapping was handled via a (http://www.cacoo.com "Cacoo.com") ERD design tool.
 
-(/database.png "ERD")
+https://github.com/kelvinma/grocery_list_frontend/blob/development/database.png
 
 ActiveRecord Querying and JSON rendering was handled through extensive use of Active Model Serialization, which allows for custom outputs of combined data tables via join table querying. Use of serialization was particularly helpful given the scope of my project, and is essentially the glue that holds all of my tables together.
 
