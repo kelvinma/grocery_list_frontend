@@ -92,6 +92,8 @@ $(function() {
     console.log(data.weekly_menu.meals);
     var singleMenuHTML = singleMenuTemplate({meals: data.weekly_menu.meals});
     $('#singleMenu').html(singleMenuHTML);
+    $('#singleMenuTable').show();
+    $('#allMenus').hide();
   };
 
   $('#allMenus').on('click', '.show-single-menu', function(e){
@@ -101,8 +103,6 @@ $(function() {
     var token = $('.token').val();
     e.preventDefault();
     glapi.showWeeklyMenu(token, menu_id, singleMenu);
-    $('#singleMenuTable').show();
-    $('#allMenus').hide();
   });
 
   // Recipes JS
@@ -118,9 +118,9 @@ $(function() {
         console.error(error);
         return;
       }
+        var menu_id = $('#current-menu').val();
+        glapi.showWeeklyMenu(token, menu_id, singleMenu);
     });
-    var menu_id = $('#current-menu').val();
-    glapi.showWeeklyMenu(token, menu_id, singleMenu);
   });
 
     // Delete Meals
@@ -135,9 +135,9 @@ $(function() {
           console.error(error);
           return;
         }
+        var menu_id = $('#current-menu').val();
+        glapi.showWeeklyMenu(token, menu_id, singleMenu);
       });
-      var menu_id = $('#current-menu').val();
-      glapi.showWeeklyMenu(token, menu_id, singleMenu);
     });
 
   // HandleBars
