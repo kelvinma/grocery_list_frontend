@@ -271,11 +271,20 @@
 
         <div class="container">
             <div class="row">
-                <h2 class="section-heading">Recipe Details</h2>
+                <h2 class="section-heading col-lg-offset-2">Recipe Details</h2>
                 <div id="single-recipe">
                         <script id="single-recipe-template" type="text/x-handlebars-template">
-                            <h3>{{name}}</h3>
-                            <div class="col-lg-2 col-sm-push-9 col-sm-3">
+                            <div class="col-lg-8 col-lg-offset-2 col-sm-9">
+                            <div class="clearfix"></div>
+                                <h3>{{name}}</h3>
+                                <h4>Description</h4>
+                                    <p>{{description}}</p>
+                                <h4>Instructions</h4>
+                                <ol>
+                                    <li>{{breaklines instructions}}
+                                </ol>
+                            </div>
+                            <div class="col-lg-2 col-sm-3">
                             <div class="clearfix"></div>
                                 <ul><h4>Ingredients</h4>
                                     {{#each ingredients}}
@@ -284,15 +293,7 @@
                                 </ul>
                             </div>
 
-                            <div class="col-lg-8 col-sm-pull-3 col-sm-9">
-                            <div class="clearfix"></div>
-                                <h4>Description</h4>
-                                    <p>{{description}}</p>
-                                <h4>Instructions</h4>
-                                <ol>
-                                    <li>{{breaklines instructions}}
-                                </ol>
-                            </div>
+
                         </script>
 
                 </div>
