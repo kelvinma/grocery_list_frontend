@@ -33,14 +33,19 @@ $(function() {
     });
 
     $('#login').on('submit', function(e) {
+      $('#login-submit').hide();
+      $('#login-loading').show();
       var credentials = wrap('credentials', form2object(this));
       var cb = function cb(error, data) {
         if (error) {
-          alert('Login Failed');
+          $('#login-loading').hide();
+          $('#login-failed').show();
+          $('#login-submit').show();
           return;
         }
         $('#login-header').hide(500);
         $('#main-page').show();
+        $('#logout').show();
         window.scrollTo(0, 0);
         $('.token').val(data.user.token);
         var token = $('.token').val();
@@ -244,6 +249,17 @@ $(function() {
       }
       $('#main-page').hide();
       $('#login-header').show(500);
+      $('#login-submit').show();
+      startupUI();
     });
   });
+
+  // initial UI loading
+  var startupUI = function(){
+    $('#logout').hide();
+    $('#login-loading').hide();
+    $('#login-failed').hide();
+  };
+
+  startupUI();
 });
