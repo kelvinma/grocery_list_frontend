@@ -32,16 +32,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#SignUp">Login</a>
-                    </li>
-                    <li>
                         <a href="#weekly_menus">Weekly Menus</a>
                     </li>
                     <li>
                         <a href="#recipes">Recipes</a>
-                    </li>
-                    <li>
-                        <a href="#grocerylist">Grocery List</a>
                     </li>
                     <li>
                         <a href="#logout" id="logout">Log Out</a>
@@ -86,7 +80,9 @@
                                 <br>
                                 <input name="password" class="form-control" type="password" placeholder="password">
                                 <br>
-                                <input name="login" class="form-control" type="submit" value="Login">
+                                <input id="login-submit" name="login" class="form-control" type="submit" value="Login">
+                                <div id="login-loading"><i class="fa fa-spinner fa-spin"></i>Logging In...</div>
+                                <div id="login-failed" style="color:red">Login Failed</div>
                                 <div id="registershow">
                                 <a href="#">Need an Account?</a>
                                 </div>
